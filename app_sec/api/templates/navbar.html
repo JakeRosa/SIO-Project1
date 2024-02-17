@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>DETI Memorabilia Shop</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="navbar-logo"><a href="/">DETI Memorabilia Shop</a></div>
+        <div class="navbar-links">
+            <div class="navbar-button-tgl navbar-button">
+                <i id="theme-icon" style="color: var(--text)" class="fas fa-sun"></i>
+            </div>
+            <a class="navbar-button" href="/products">
+                Products
+            </a>
+
+            {% if current_user.is_authenticated %}
+            <a href="/cart" class="navbar-button">
+                Your Cart
+            </a>
+
+            <a class="navbar-button" href="/wishlist">
+                Wishlist
+            </a>
+            {% else %}
+            <a class="navbar-button" href="/login">
+                Login
+            </a>
+            {% endif %}
+
+            {% if current_user.is_authenticated %}
+            <a class="navbar-button" href="/profile">
+                Profile
+            </a>
+            {% endif %}
+            {% if current_user.is_authenticated %}
+            <a class="navbar-button" href="/logout" style="color: var(--text)">
+                Logout
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+    // When the user scrolls the page, execute myFunction
+    window.onscroll = function () { stickyNav() };
+
+    // Get the navbar
+    var navbar = document.getElementsByClassName("navbar")[0]
+    // Get the offset position of the navbar
+    var toggle_ld = document.getElementById("theme-icon")
+
+
+    if (localStorage.getItem("theme") == null) {
+        if (!window.matchMedia) {
+            //matchMedia method not supported
+        } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+            //OS theme setting detected as dark
+            localStorage.setItem("theme", "dark");
+        }
+        else {
+            //OS theme setting detected as light
+            localStorage.setItem("theme", "light");
+        }
+    }
+    change_ld();
+    var sticky = navbar.clientHeight;
+    toggle_ld.addEventListener("click", function () {
+        if (localStorage.getItem("theme") == "dark") {
+            localStorage.setItem("theme", "light");
+        } else {
+            localStorage.setItem("theme", "dark");
+        }
+        change_ld();
+    });
+
+    // Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
+    function stickyNav() {
+        if (window.pageYOffset >= sticky) {
+            navbar.classList.add("see-through");
+        } else {
+            navbar.classList.remove("see-through");
+        }
+    }
+
+    function change_ld() {
+        if (localStorage.getItem("theme") == "dark") {
+            toggle_ld.classList.add("hidden");
+            setTimeout(function () {
+                toggle_ld.classList.remove("fa-sun");
+                toggle_ld.classList.add("fa-moon");
+                toggle_ld.classList.remove("hidden");
+            }, 250);
+            document.documentElement.setAttribute("data-theme", "dark");
+        } else {
+            toggle_ld.classList.add("hidden");
+            setTimeout(function () {
+                toggle_ld.classList.remove("fa-moon");
+                toggle_ld.classList.add("fa-sun");
+                toggle_ld.classList.remove("hidden");
+            }, 250);
+            document.documentElement.setAttribute("data-theme", "light");
+        }
+    }
+</script>

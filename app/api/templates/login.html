@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>DETI Memorabilia Shop</title>
+</head>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/animation.css') }}">
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+
+<body>
+
+  {% include 'navbar.html' %}
+
+  <div class="wrapper">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="notification is-danger">
+      {{ messages[0] }}
+    </div>
+    {% endif %}
+    {% endwith %}
+    <div class="container">
+      <form action="/login" class="form-signin" method="POST">
+        <h2 class="form-signin-heading">Login</h2>
+        <input type="text" class="form-control" name="email" placeholder="Email Address" required="" autofocus="" />
+        <input type="password" class="form-control" name="password" placeholder="Password" />
+        <button class="btn" type="submit" value="submit">Login</button>
+        <a href="/register">Don't have an account yet? Register here</a>
+      </form>
+    </div>
+  </div>
+
+  <div class="green_fade"></div> 
+  <div class="green_fade_2"></div>
+</body>
+
+</html>

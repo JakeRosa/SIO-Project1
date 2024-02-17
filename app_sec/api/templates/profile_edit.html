@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Profile</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animation.css') }}">
+
+</head>
+
+<body>
+
+    {% include 'navbar.html' %}
+
+    <div class="container">
+        <form method="POST" class="" action="{{ url_for('authenticated.profile_edit', id=user.id) }}"
+            enctype="multipart/form-data">
+            <h1>Edit Profile</h1>
+            <label for="first_name">First Name:</label>
+            <input type="text" id="first_name" name="first_name" value="{{ user.first_name }}" required>
+
+            <label for="last_name">Last Name:</label>
+            <input type="text" id="last_name" name="last_name" value="{{ user.last_name }}" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value="{{ user.email }}" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password">
+
+            <label for="new_password">New Password:</label>
+            <input type="password" id="new_password" name="new_password">
+
+            <label for="confirm_password">Confirm Password:</label>
+            <input type="password" id="confirm_password" name="confirm_password">
+
+            <label for="password">Profile Picture:</label>
+            <div>
+                <input class="form_image_input" type="file" id="profile_picture" name="profile_picture">
+            </div>
+
+            <!--dar fix accept="image/png, image/jpeg" -->
+
+            <input style="cursor: pointer; margin-top: 2rem" type="submit" value="Update Profile">
+        </form>
+    </div>
+    <div class="green_fade"></div>
+    <div class="green_fade_2"></div>
+
+</body>
+
+</html>

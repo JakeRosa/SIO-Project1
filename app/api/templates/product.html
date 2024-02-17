@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{ product.name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/product.css') }}">
+</head>
+
+<body>
+    {% include 'navbar.html' %}
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="alert">
+        {{ messages[0] }}
+    </div>
+    {% endif %}
+    {% endwith %}
+    <div class="container align-center">
+
+        <div class="product-container">
+            <div class="product-info">
+                <h1>{{ product.name }}</h1>
+                <img src="/static/pictures/{{ product.image }}" alt="{{ product.name }}" width="300" height="200">
+                <p style="color: var(--text)">Price: {{ product.price }} €</p>
+                <p style="color: var(--text)">Description: {{ product.description }}</p>
+            </div>
+            <div class="product-interaction">
+                <div class="product-interaction1">
+                    <h3>Add to Cart:</h3>
+                    <form action="/products/add_to_cart/{{ product.id }}" method="POST">
+                        <label for="quantity">Quantity:</label>
+                        <input type="number" name="quantity" min="1" value="1" required>
+                        <button type="submit">Add to Cart</button>
+                    </form>
+                    <br>
+                    <form action="/products/add_to_wishlist/{{ product.id }}" method="POST">
+                        <button type="submit">Add to Wishlist</button>
+                    </form>
+                </div>
+                {% if current_user.role == "admin" %}
+                <div class="product-interaction2">
+                    <h3>Change Stock:</h3>
+                    <form id="changeStockForm">
+                        <label for="new_stock">New Stock Quantity:</label>
+                        <input type="number" name="new_stock_quantity" id="new_stock_quantity" min="0" required>
+                        <br>
+                        <button type="button" id="changeStockButton">Change Stock</button>
+                    </form>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="review-container">
+            <h3>Leave a review:</h3>
+            <form action="/products/{{ product.id }}" method="POST">
+                <label for="rating">Rating:</label>
+                <input type="number" name="rating" min="1" max="5" required>
+                <br>
+                <label for="comment">Comment:</label>
+                <textarea name="comment" rows="4" required></textarea>
+                <br>
+                <br>
+                <button type="submit">Submit</button>
+            </form>
+            <h2>Reviews</h2>
+            <ul>
+                {% for review in reviews %}
+                <li>
+                    <strong>{{ review.user.first_name }}:</strong>
+                    <span>Rating: {{ review.rating }}</span>
+                    <p style="color: var(--text);">{{ review.comment }}</p>
+                    <hr style="color: var(--accent); max-width: 90%; margin-left:0px;">
+                </li>
+                {% endfor %}
+        </div>
+    </div>
+</body>
+
+
+<script>
+    document.getElementById("changeStockButton").addEventListener("click", function () {
+        const productId = ("{{ product.id }}");  // Replace with the actual product ID
+        console.log(productId);
+        const newStockQuantity = document.getElementById("new_stock_quantity").value;
+        const data = {
+            new_stock_quantity: newStockQuantity
+        };
+
+        fetch(`/change_stock/${productId}`, {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json",
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                // Handle the response, e.g., show a success message or handle errors
+                console.log(data);
+            })
+            .catch(error => {
+                // Handle errors, e.g., display an error message
+                console.error(error);
+            });
+    });
+</script>
+
+
+</html>

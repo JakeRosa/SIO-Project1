@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/products.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+</head>
+
+<body>
+
+    {% include 'navbar.html' %}
+
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="alert">
+            {{ messages[0] }}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        <h1 style="color: var(--primary);">Products</h1>
+        <div class="product-cards">
+            {% for product in products %}
+            <a href="/products/{{ product.id }}" class="product-card-link">
+                <div class="product-card">
+                    <img src="/static/pictures/{{ product.image }}" alt="{{ product.name }}">
+                    <h2>{{ product.name }}</h2>
+                    <p>{{ product.description }}</p>
+                    <p>Price: {{ product.price }} €</p>
+                    {% if product.stock_quantity > 0 %}
+                    <p>In Stock</p>
+                    {% else %}
+                    <p>Out Of Stock</p>
+                    {% endif %}
+                    <p>Quantity in stock: {{ product.stock_quantity }}</p>
+                </div>
+                {% endfor %}
+        </div>
+    </div>
+</body>
+
+</html>

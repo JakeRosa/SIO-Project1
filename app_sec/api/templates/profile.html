@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='navbar.css') }}">
+</head>
+
+<body>
+    {% include 'navbar.html' %}
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="alert">
+        {{ messages[0] }}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <div class="container">
+        <h1>User Profile</h1>
+        <div class="profile-info">
+            <div class="profile-picture">
+                <img src="/static/pictures/{{ current_user.profile_picture }}" alt="{{ current_user.name }}">
+            </div>
+            <h2>Hello, {{ name }}</h2>
+            <p>Your profile information:</p>
+            <ul>
+                <li><strong>First Name:</strong> {{ current_user.first_name }}</li>
+                <li><strong>Last Name:</strong> {{ current_user.last_name }}</li>
+                <li><strong>Email:</strong> {{ current_user.email }}</li>
+                <li><strong>Role:</strong> {{ current_user.role }}</li>
+            </ul>
+        </div>
+        <a href="profile/edit/{{ current_user.id }}" class="btn btn-danger">Edit Profile</a>
+        <a href="orders" class="btn btn-danger">Order History</a>
+    </div>
+</body>
+
+</html>

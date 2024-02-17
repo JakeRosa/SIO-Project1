@@ -1,0 +1,99 @@
+.product-container {
+    display: flex;
+    flex-direction: row;
+	background-color: #131313;
+	border: 0.1rem solid var(--accent);
+    max-width: 80%;
+    border-radius: 2.5rem;
+    padding-left: 2.5rem;
+    margin: 2.5rem;
+}
+
+.product-interaction {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.product-interaction1 {
+    margin-left: 6rem;
+    margin-right: 6rem;
+}
+
+.product-interaction2 {
+    margin-left: 6rem;
+    margin-right: 6rem;
+}
+
+.review-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #131313;
+    border: 0.1rem solid var(--accent);
+    margin: 2.5rem;
+    max-width: 80%;
+    min-width: 80%;
+    border-radius: 2.5rem;
+    padding-left: 2.5rem;
+}
+
+
+form > input {
+    border: 0.1rem solid var(--accent);
+    margin: auto auto 1.5rem auto;
+    min-height: 2.5rem;
+    min-width: auto;
+    font-size: large;
+    text-align: center;
+    background-color: #071b14;
+    color: var(--text);
+    border-radius: 24px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+form > label {
+    color: var(--text);
+}
+
+button {
+    background-color: var(--primary);
+    align-items: center;
+    border-radius: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    color: var(--text);
+    padding: 0.25rem;
+    text-align: center;
+    text-decoration: none;
+    min-width: 20px;
+    transition: background-color 0.3s;
+    cursor: pointer;
+    border: 0px;
+}
+
+button:hover{
+    background-color: var(--secondary   );
+}
+
+
+form > textarea {
+    color: var(--text);
+    background-color: var(--background);
+    border: 1px solid var(--accent);
+    width: 85%;
+    height: 30%;
+    overflow: scroll;
+    resize: none;
+    border-radius: 10px;
+}

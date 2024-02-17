@@ -1,0 +1,39 @@
+form {
+    max-width: 380px;
+	padding: 15px 35px 45px;
+	margin: 0 auto;
+	border: 0.1rem solid var(--accent);
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	background-color: #131313;
+	border-radius: 24px;
+
+}
+form > * {
+    margin: auto auto 1rem auto;
+}
+
+form > input {
+    border: 0.1rem solid var(--accent);
+    margin: auto auto 1.5rem auto;
+    min-height: 2.5rem;
+    min-width: 100%;
+    font-size: large;
+    text-align: center;
+    background-color: #071b14;
+    color: var(--text);
+    border-radius: 24px;
+}
+
+form > label {
+    color: var(--primary);
+    font-size: 1.5rem;
+}
+
+.form_image_input {
+
+    text-align: center;
+    color: var(--text);
+}

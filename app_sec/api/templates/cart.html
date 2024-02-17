@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cart.css') }}">
+</head>
+
+<body>
+
+    {% include 'navbar.html' %}
+
+    <h1>Your Cart</h1>
+    <div class="cart-items">
+        {% if order_items %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Unit Price</th>
+                    <th>Total</th>
+                    <th>Update</th>
+                    <th>Remove</th>
+                    <th>Insertion Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in order_items %}
+                <tr>
+                    <td>{{ item.product.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>${{ item.product.price }}</td>
+                    <td>${{ item.product.price * item.quantity }}</td>
+                    <td>
+                        <form action="/cart/update/{{ item.order_id }}-{{ item.product_id }}" method="POST">
+                            <input type="number" name="quantity" value="{{ item.quantity }}" min="1">
+                            <button type="submit">Update</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/cart/remove/{{ item.order_id }}-{{ item.product_id }}" method="POST">
+                            <button type="submit">Remove</button>
+                        </form>
+                    </td>
+                    <td>{{ item.created_at }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <p>Total: ${{ total_price }}</p>
+
+        <form action="/cart/checkout" method="POST">
+            <button type="submit">Checkout</button>
+        </form>
+
+        {% else %}
+        <p>Your cart is empty.</p>
+        {% endif %}
+    </div>
+</body>
+
+</html>

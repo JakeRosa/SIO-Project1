@@ -1,0 +1,16 @@
+.border-pog {
+    border: 0.1rem solid var(--accent);
+    min-height: 2.5rem;
+    min-width: 80%;
+    font-size: large;
+    text-align: center;
+    background-color: #071b14;
+    border-radius: 24px;
+}
+
+.cart-items {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

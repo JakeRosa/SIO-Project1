@@ -1,0 +1,36 @@
+[data-theme="light"] {
+    --text: #081715;
+    --background: #fbfefd;
+    --primary: #8fe0b4;
+    --secondary: #141414;
+    --accent: #007a39;
+}
+
+[data-theme="dark"] {
+    --text: #e8f7f5;
+    --background: #1a1919;
+    --primary: #1f7043;
+    --secondary: #083015;
+    --accent: #85ffbe;
+}
+
+html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background-color: var(--background, 0,0,0);
+    color: var(--primary);
+    font-family: 'Roboto', sans-serif;
+    overflow: scroll;
+}
+
+.container {
+    max-width:100%;
+    margin: 6rem 2.5rem 6rem 2.5rem;
+    min-height: calc(100vh - 12rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+

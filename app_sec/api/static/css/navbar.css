@@ -1,0 +1,80 @@
+/* Estilos para a barra de navegação */
+.navbar {
+    background-color: var(--background);
+    /* Fundo branco */
+    overflow: hidden;
+    display: flex;
+    min-height: 4rem;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 2px 2px var(--accent);
+    left: 0;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 10;
+    max-height: 64px;
+}
+
+
+.navbar-links {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+}
+#theme-icon {
+    transition: opacity 0.5s ease-in-out;
+}
+
+#theme-icon.hidden {
+    opacity: 0;
+}
+
+.navbar-button-tgl {
+    background-color: var(--primary);
+    margin-left: 5px;
+    margin-right: 5px;
+    align-items: center;
+    border-radius: 50%;
+    padding: 0.3rem;
+    text-align: center;
+    text-decoration: none;
+    min-width: 1.25rem;
+}
+
+.navbar-button{
+    background-color: var(--primary);
+    align-items: center;
+    border-radius: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 0.25rem;
+    text-align: center;
+    text-decoration: none;
+    min-width: 20px;
+    transition: background-color 0.3s;
+    cursor: pointer;
+}
+
+.navbar a {
+    
+    /* Cor verde */
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 500;
+    min-width: 6rem;
+    transition: color 0.3s;
+}
+
+.navbar-button:hover {
+    background-color: var(--secondary);
+    /* Cor laranja ao passar o mouse */
+}
+
+
+.navbar-logo a {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-left: 2rem;
+}

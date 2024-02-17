@@ -1,0 +1,19 @@
+.profile-info {
+    display: flex;
+    flex-direction: row;
+}
+
+.profile-details {
+    display: flex;
+    flex-direction: column;
+    width: 60vh;
+    height: 100%;
+    margin: 0px 0px 0px 2.5rem;
+    border: 0.1rem solid var(--accent);
+	background-color: #131313;
+	border-radius: 24px;
+}
+
+.profile-details > * {
+    margin: 1rem 1rem 1rem 2.5rem;
+}

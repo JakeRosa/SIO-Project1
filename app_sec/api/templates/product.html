@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{ product.name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+</head>
+
+<body>
+    {% include 'navbar.html' %}
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="alert">
+        {{ messages[0] }}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <h1>{{ product.name }}</h1>
+    <p>Price: {{ product.price }} €</p>
+    <img src="/static/pictures/{{ product.image }}" alt="{{ product.name }}" width="200" height="200">
+    <p>Description: {{ product.description }}</p>
+
+    <h2>Reviews</h2>
+    <ul>
+        {% for review in reviews %}
+        <li>
+            <strong>{{ review.user.first_name }}:</strong>
+            <span>Rating: {{ review.rating }}</span>
+            <p>{{ review.comment }}</p>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <h3>Deixe sua avaliação:</h3>
+    <form action="/products/{{ product.id }}" method="POST">
+        <label for="rating">Rating:</label>
+        <input type="number" name="rating" min="1" max="5" required>
+        <br>
+        <label for="comment">Comment:</label>
+        <textarea name="comment" rows="4" required></textarea>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+    <h3>Add to cart:</h3>
+    <form action="/products/add_to_cart/{{ product.id }}" method="POST">
+        <label for="quantity">Quantity:</label>
+        <input type="number" name="quantity" min="1" value="1" required>
+        <button type="submit">Add to cart</button>
+    </form>
+
+    {% if current_user.role == "admin" %}
+    <h3>Change Stock:</h3>
+    <form id="changeStockForm">
+        <label for="new_stock">New Stock Quantity:</label>
+        <input type="number" name="new_stock_quantity" id="new_stock_quantity" min="0" required>
+        <br>
+        <button type="button" id="changeStockButton">Change Stock</button>
+    </form>
+    {% endif %}
+
+    <h3>Add to Wishlist:</h3>
+    <form action="/products/add_to_wishlist/{{ product.id }}" method="POST">
+        <button type="submit">Add to Wishlist</button>
+    </form>
+</body>
+
+
+<script>
+    document.getElementById("changeStockButton").addEventListener("click", function () {
+        const productId = ("{{ product.id }}");  // Replace with the actual product ID
+        console.log(productId);
+        const newStockQuantity = document.getElementById("new_stock_quantity").value;
+        const data = {
+            new_stock_quantity: newStockQuantity
+        };
+
+        fetch(`/change_stock/${productId}`, {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json",
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                // Handle the response, e.g., show a success message or handle errors
+                console.log(data);
+            })
+            .catch(error => {
+                // Handle errors, e.g., display an error message
+                console.error(error);
+            });
+    });
+</script>
+
+
+</html>
